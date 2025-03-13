@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupon Distributor</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        #coupon-box { margin-top: 20px; font-size: 20px; font-weight: bold; color: green; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Claim Your Coupon</h1>
+    <button onclick="claimCoupon()">Get Coupon</button>
+    <div id="coupon-box"></div>
+
+    <script>
+        function claimCoupon() {
+            fetch('/coupon')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById('coupon-box').innerText = "Error: " + data.error;
+                    } else {
+                        document.getElementById('coupon-box').innerText = "Your Coupon: " + data.coupon;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
